@@ -11,14 +11,22 @@ public class FirstServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // entering name and surname user
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
+        // counting the number of visits from user
+        HttpSession session = request.getSession();
+
+        Integer count = (Integer) session.getAttribute("count");
+
+        if (count == null) {
+            count = 1;
+            session.setAttribute("count", 2);
+        } else {
+            session.setAttribute("count", count + 1);
+        }
 
         PrintWriter pw = response.getWriter();
 
         pw.println("<html>");
-        pw.println("<h1>Hello, " + name + " " + surname + " </h1>");
+        pw.println("<h1> Your count is: " + count + " </h1>");
         pw.println("</html>");
     }
 }
