@@ -15,19 +15,16 @@ public class FirstServlet extends HttpServlet {
         // cart for online store
         HttpSession session = request.getSession();
 
-        Cart cart = (Cart) session.getAttribute("cart");
+        String user = (String) session.getAttribute("current_user");
 
-        String name = request.getParameter("name");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-        if (cart == null) {
-            cart = new Cart();
-            cart.setName(name);
-            cart.setQuantity(quantity);
+        if (user == null) {
+            // response for anonymous user
+            // authorization
+            // registration
+            // session.setAttribute("curren_user", ID);
+        } else {
+            // response for authorization user
         }
 
-        session.setAttribute("cart", cart);
-
-        getServletContext().getRequestDispatcher("/showCart.jsp").forward(request, response);
     }
 }
